@@ -9,6 +9,7 @@
 #include "Sound/SoundCue.h" 
 #include "Particles/ParticleSystem.h"
 #include "Engine/SkeletalMeshSocket.h"
+#include "Particles/ParticleSystemComponent.h" 
 
 // Sets default values
 AShooterCharacter::AShooterCharacter() :
@@ -103,11 +104,21 @@ void AShooterCharacter::FireWeapon() {
 		const FVector RotationAxis{ Rotation.GetAxisX() };
 		const FVector End{ Start + RotationAxis * 50'000.f };
 
+		FVector BeamEndPoint{ End };
+
 		GetWorld()->LineTraceSingleByChannel(FireHit, Start, End, ECollisionChannel::ECC_Visibility);
 		if (FireHit.bBlockingHit) {
 
+			BeamEndPoint = FireHit.Location;
+
 			if (ImpactParticles) {
 				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactParticles, FireHit.Location);
+			}
+		}
+		if (BeamParticles) {
+			UParticleSystemComponent* Beam = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BeamParticles, SocketTransform);
+			if (Beam) {
+				Beam->SetVectorParameter(FName("Target"), BeamEndPoint);
 			}
 		}
 	}
