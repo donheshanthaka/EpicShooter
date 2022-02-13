@@ -106,6 +106,9 @@ void AShooterCharacter::FireWeapon() {
 		GetWorld()->LineTraceSingleByChannel(FireHit, Start, End, ECollisionChannel::ECC_Visibility);
 		if (FireHit.bBlockingHit) {
 
+			if (ImpactParticles) {
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactParticles, FireHit.Location);
+			}
 		}
 	}
 
