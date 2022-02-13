@@ -24,6 +24,7 @@ AShooterCharacter::AShooterCharacter() :
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->TargetArmLength = 300.f; // The camera follow length behind the character
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
+	CameraBoom->SocketOffset = FVector{ 0.f, 50.f, 0.f };
 
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -32,11 +33,11 @@ AShooterCharacter::AShooterCharacter() :
 
 	// The character doesn't rotate when the controller rotates, The contoller only affects the camera
 	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = false;
+	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;
 
 	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input
+	GetCharacterMovement()->bOrientRotationToMovement = false; // Character moves in the direction of input
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 540.f, 0.f); // At this roation rate
 	GetCharacterMovement()->JumpZVelocity = 400.f; // Jump height (600 default)
 	GetCharacterMovement()->AirControl = 0.2f;
