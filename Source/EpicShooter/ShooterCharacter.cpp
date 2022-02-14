@@ -10,6 +10,8 @@
 #include "Particles/ParticleSystem.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "Particles/ParticleSystemComponent.h" 
+#include "Item.h"
+#include "Components/WidgetComponent.h"
 
 // Sets default values
 AShooterCharacter::AShooterCharacter() :
@@ -199,7 +201,8 @@ bool AShooterCharacter::GetBeamEndLocation(const FVector& MuzzleSocketLocation, 
 	FVector CrosshairWorldDirection;
 
 	// Get world position and direction of crosshairs
-	bool bScreenToWorld = UGameplayStatics::DeprojectScreenToWorld(UGameplayStatics::GetPlayerController(this, 0), CrosshairLocation, CrosshairWorldPosition, CrosshairWorldDirection);
+	bool bScreenToWorld = UGameplayStatics::DeprojectScreenToWorld(UGameplayStatics::GetPlayerController(this, 0),
+		CrosshairLocation, CrosshairWorldPosition, CrosshairWorldDirection);
 
 	if (bScreenToWorld) { // if deprojection was successful
 
@@ -270,6 +273,17 @@ void AShooterCharacter::Tick(float DeltaTime)
 
 	// Calculate crosshair spread multiplier
 	CalculateCrosshairSpread(DeltaTime);
+
+	FHitResult ItemTraceResult;
+	TraceUnderCrosshairs(ItemTraceResult);
+	if (ItemTraceResult.bBlockingHit) {
+		AItem* HitItem = Cast<AItem>(ItemTraceResult.Actor);
+		if (HitItem && HitItem->GetPickupWidget()) {
+
+			// Show item's pickup widget
+			HitItem->GetPickupWidget()->SetVisibility(true);
+		}
+	}
 }
 
 void AShooterCharacter::SetLookRates() {
@@ -360,6 +374,37 @@ void AShooterCharacter::AutoFireReset()
 	if (bFireButtonPressed) {
 		StartFireTimer();
 	}
+}
+
+bool AShooterCharacter::TraceUnderCrosshairs(FHitResult& OutHitResult)
+{
+	// Get Viewport size
+	FVector2D ViewportSize;
+	if (GEngine && GEngine->GameViewport) {
+		GEngine->GameViewport->GetViewportSize(ViewportSize);
+	}
+
+	// Get screen space location of crosshairs
+	FVector2D CrosshairLocation(ViewportSize.X / 2.f, ViewportSize.Y / 2.f);
+	CrosshairLocation.Y -= 50.f;
+	FVector CrosshairWorldPosition;
+	FVector CrosshairWorldDirection;
+
+	// Get world position and direction of crosshairs
+	bool bScreenToWorld = UGameplayStatics::DeprojectScreenToWorld(UGameplayStatics::GetPlayerController(this, 0),
+		CrosshairLocation, CrosshairWorldPosition, CrosshairWorldDirection);
+
+	if (bScreenToWorld) {
+		// Trace from crosshair world location outward
+		const FVector Start{ CrosshairWorldPosition };
+		const FVector End{ Start + CrosshairWorldDirection * 50'000.f };
+		GetWorld()->LineTraceSingleByChannel(OutHitResult, Start, End, ECollisionChannel::ECC_Visibility);
+
+		if (OutHitResult.bBlockingHit) {
+			return true;
+		}
+	}
+	return false;
 }
 
 // Called to bind functionality to input
