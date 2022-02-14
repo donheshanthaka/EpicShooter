@@ -263,6 +263,11 @@ void AShooterCharacter::SetLookRates() {
 	}
 }
 
+void AShooterCharacter::CalculateCrosshairSpread(float DeltaTime)
+{
+
+}
+
 // Called to bind functionality to input
 void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
