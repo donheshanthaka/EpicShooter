@@ -451,6 +451,8 @@ void AShooterCharacter::EquipWeapon(AWeapon* WeaponToEquip)
 		}
 		// Set Equipped weapon to the newly spwanned weapon
 		EquippedWeapon = WeaponToEquip;
+		// Change the item state to equipped
+		EquippedWeapon->SetItemState(EItemState::EIS_Equipped);
 	}
 }
 
