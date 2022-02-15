@@ -14,4 +14,20 @@ class EPICSHOOTER_API AWeapon : public AItem
 {
 	GENERATED_BODY()
 	
+public:
+	AWeapon();
+
+	virtual void Tick(float DeltaTime) override;
+protected:
+	
+	void StopFalling();
+
+private:
+	FTimerHandle ThrowWeaponTimer;
+	float ThrowWeaponTime;
+	bool bFalling;
+
+public:
+	/** Adds an impulse to the weapon */
+	void ThrowWeapon();
 };
