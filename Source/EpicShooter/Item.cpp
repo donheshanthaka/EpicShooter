@@ -152,6 +152,22 @@ void AItem::SetItemProperties(EItemState State) {
 		CollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		break;
 
+	case EItemState::EIS_Falling:
+		// Set ItemMesh properties
+		ItemMesh->SetSimulatePhysics(true);
+		ItemMesh->SetEnableGravity(true);
+		ItemMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		ItemMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+		ItemMesh->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Block);
+
+		// Set AreaSphere properties
+		AreaSphere->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+		AreaSphere->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		// Set CollisionBox properties
+		CollisionBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+		CollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		break;
 	}
 }
 
