@@ -167,13 +167,14 @@ void AShooterCharacter::LookUp(float Value)
 
 void AShooterCharacter::FireWeapon() {
 
+	if (EquippedWeapon == nullptr) return;
 	if (FireSound) {
 		UGameplayStatics::PlaySound2D(this, FireSound);
 	}
 
-	const USkeletalMeshSocket* BarrelSocket = GetMesh()->GetSocketByName("BarrelSocket");
+	const USkeletalMeshSocket* BarrelSocket = EquippedWeapon->GetItemMesh()->GetSocketByName("BarrelSocket");
 	if (BarrelSocket) {
-		const FTransform SocketTransform = BarrelSocket->GetSocketTransform(GetMesh());
+		const FTransform SocketTransform = BarrelSocket->GetSocketTransform(EquippedWeapon->GetItemMesh());
 
 		if (MuzzleFlash) {
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), MuzzleFlash, SocketTransform);
