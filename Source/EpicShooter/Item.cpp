@@ -17,7 +17,9 @@ AItem::AItem():
 	ZCurveTime(0.7f),
 	ItemInterpStartLocation(FVector(0.f)),
 	CameraTargetLocation(FVector(0.f)),
-	bInterping(false)
+	bInterping(false),
+	ItemInterpX(0.f),
+	ItemInterpY(0.f)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -196,8 +198,34 @@ void AItem::SetItemProperties(EItemState State) {
 
 void AItem::FinishInterping()
 {
+	bInterping = false;
 	if (Character) {
 		Character->GetPickupItem(this);
+	}
+}
+
+void AItem::ItemInterp(float DeltaTime)
+{
+	if (!bInterping) return;
+	if (Character && ItemZCurve) {
+		// Elapsed time since we started ItemInterpTimer
+		const float ElapsedTime = GetWorldTimerManager().GetTimerElapsed(IntemInterpTimer);
+		// Get curve value corresponding to ElapsedTime
+		const float CurveValue = ItemZCurve->GetFloatValue(ElapsedTime);
+		// Get the item's initial location when the curve started
+		FVector ItemLocation = ItemInterpStartLocation;
+		// Get location in front of the camera
+		const FVector CameraInterpLocation{ Character->GetCameraInterpLocation() };
+
+		// Vector from Item to camera Interp Location, X and Y are zeroed out 
+		const FVector ItemToCamera{ FVector(0.f, 0.f, (CameraInterpLocation - ItemLocation).Z) };
+		// Scale factor to multiply with CurveValue
+		const float DeltaZ = ItemToCamera.Size();
+
+		// Adding curve value to the Z component of the initial location (saled by DeltaZ)
+		ItemLocation.Z += CurveValue * DeltaZ;
+		SetActorLocation(ItemLocation, true, nullptr, ETeleportType::TeleportPhysics);
+
 	}
 }
 
@@ -223,6 +251,8 @@ void AItem::StartItemCurve(AShooterCharacter* Char)
 void AItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	// Handle Item interping when in the EquipInterping state
+	ItemInterp(DeltaTime);
 
 }
 

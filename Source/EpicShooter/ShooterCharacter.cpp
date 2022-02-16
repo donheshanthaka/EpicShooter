@@ -476,8 +476,7 @@ void AShooterCharacter::SwapWeapon(AWeapon* WeaponToSwap) {
 void AShooterCharacter::SelectButtonPressed()
 {
 	if (TraceHitItem) {
-		auto TraceHitWeapon = Cast<AWeapon>(TraceHitItem);
-		SwapWeapon(TraceHitWeapon);
+		TraceHitItem->StartItemCurve(this);
 	}
 }
 
@@ -532,7 +531,7 @@ void AShooterCharacter::IncrementOverlappedItemCount(int8 Amount)
 	}
 }
 
-FVector AShooterCharacter::GetCameraLocation() {
+FVector AShooterCharacter::GetCameraInterpLocation() {
 	const FVector CameraWorldLocation{ FollowCamera->GetComponentLocation() };
 	const FVector CameraForward{ FollowCamera->GetForwardVector() };
 	// Desired = CameraWorldLocation + Forward * A + Up * B
