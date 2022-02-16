@@ -110,6 +110,9 @@ protected:
 	/** Initialize the ammo map with ammo values */
 	void InitializeAmmoMap();
 
+	/** Check to make sure weapon has ammo */
+	bool WeaponHasAmmo();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
