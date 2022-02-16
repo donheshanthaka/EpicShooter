@@ -6,6 +6,7 @@
 #include "Components/WidgetComponent.h"
 #include "Components/SphereComponent.h"
 #include "ShooterCharacter.h"
+#include "Camera/CameraComponent.h"
 
 // Sets default values
 AItem::AItem():
@@ -237,6 +238,11 @@ void AItem::ItemInterp(float DeltaTime)
 		ItemLocation.Z += CurveValue * DeltaZ;
 		SetActorLocation(ItemLocation, true, nullptr, ETeleportType::TeleportPhysics);
 
+		// Camera rotaion this frame
+		const FRotator CameraRotaion{ Character->GetFollowCamera()->GetComponentRotation() };
+		// Camera rotation plus initial yaw offset
+		FRotator ItemRotation{ 0.f, CameraRotaion.Yaw + InterpInitialYawOffset, 0.f };
+		SetActorRotation(ItemRotation, ETeleportType::TeleportPhysics);
 	}
 }
 
@@ -256,6 +262,14 @@ void AItem::StartItemCurve(AShooterCharacter* Char)
 	SetItemState(EItemState::EIS_EquipInterping);
 
 	GetWorldTimerManager().SetTimer(IntemInterpTimer, this, &AItem::FinishInterping, ZCurveTime);
+
+	// Get initial Yaw of the camera
+	const float CameraRotationYaw{ Character->GetFollowCamera()->GetComponentRotation().Yaw };
+	// Get initial Yaw of the Item
+	const float ItemRotaionYaw{ GetActorRotation().Yaw };
+
+	// Initial Yaw offset between Camera and Item
+	InterpInitialYawOffset = ItemRotaionYaw - CameraRotationYaw;
 }
 
 // Called every frame
