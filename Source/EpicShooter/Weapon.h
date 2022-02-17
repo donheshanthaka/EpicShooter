@@ -6,6 +6,14 @@
 #include "Item.h"
 #include "Weapon.generated.h"
 
+UENUM(BlueprintType)
+enum class EWeaponType : uint8 {
+	EWT_SubmachineGun UMETA(DisplayName = "SubmachineGun"),
+	EWT_AssaultRifle UMETA(DisplayName = "AssaultRifle"),
+
+	EWT_MAX UMETA(DisplayName = "DefaultMax")
+};
+
 /**
  * 
  */
@@ -31,6 +39,10 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Properties", meta = (AllowPrivateAccess = "true"))
 	int32 Ammo;
 
+	/** The type of weapon */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Properties", meta = (AllowPrivateAccess = "true"))
+	EWeaponType WeaponType;
+
 public:
 	/** Adds an impulse to the weapon */
 	void ThrowWeapon();
@@ -39,4 +51,6 @@ public:
 	
 	/** Called from character class when firing weapon */
 	void DecrementAmmo();
+
+	FORCEINLINE EWeaponType GetWeaponType() const { return WeaponType; }
 };
