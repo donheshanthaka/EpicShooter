@@ -57,6 +57,9 @@ private:
 	FName ReloadMontageSection;
 
 
+	/** True when moving the clip while reloading */
+	bool bMovingClip;
+
 public:
 	/** Adds an impulse to the weapon */
 	void ThrowWeapon();

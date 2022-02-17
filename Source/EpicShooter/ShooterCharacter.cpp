@@ -591,6 +591,14 @@ bool AShooterCharacter::CarryingAmmo()
 	return false;
 }
 
+void AShooterCharacter::GrabClip()
+{
+}
+
+void AShooterCharacter::ReleaseClip()
+{
+}
+
 void AShooterCharacter::SelectButtonPressed()
 {
 	if (TraceHitItem) {
