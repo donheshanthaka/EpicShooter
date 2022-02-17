@@ -4,7 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Item.h"
-#include "Weapon.generated.h"
+#include "AmmoType.h"
+#include "Weapon.generated.h" // .generated should always be the last
 
 UENUM(BlueprintType)
 enum class EWeaponType : uint8 {
@@ -43,6 +44,14 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Properties", meta = (AllowPrivateAccess = "true"))
 	EWeaponType WeaponType;
 
+	/** The type of ammo for this weapon */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Properties", meta = (AllowPrivateAccess = "true"))
+	EAmmoType AmmoType;
+
+	/** FName for the realod montage section */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Properties", meta = (AllowPrivateAccess = "true"))
+	FName ReloadMontageSection;
+
 public:
 	/** Adds an impulse to the weapon */
 	void ThrowWeapon();
@@ -53,4 +62,6 @@ public:
 	void DecrementAmmo();
 
 	FORCEINLINE EWeaponType GetWeaponType() const { return WeaponType; }
+	FORCEINLINE EAmmoType GetAmmoType() const { return AmmoType; }
+	FORCEINLINE FName GetReloadMontageSection() const { return ReloadMontageSection; }
 };
