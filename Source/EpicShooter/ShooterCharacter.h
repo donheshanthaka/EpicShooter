@@ -133,6 +133,9 @@ protected:
 	/** Handle reloading of the weapon */
 	void ReloadWeapon();
 
+	UFUNCTION(BlueprintCallable)
+	void FinishReloading();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -309,6 +312,10 @@ private:
 	/** Combat state can only fire or reload if unoccupied */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Combat, meta = (AllowPrivateAccess = "true"))
 	ECombatState CombatState;
+
+	/** Montage for reload animations */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Items, meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* ReloadMontage;
 
 public:
 

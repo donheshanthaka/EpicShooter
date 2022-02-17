@@ -344,6 +344,7 @@ void AShooterCharacter::AutoFireReset()
 	}
 	else {
 		// Reload Weapon
+		ReloadWeapon();
 	}
 }
 
@@ -523,11 +524,35 @@ void AShooterCharacter::PlayGunfireMontage()
 
 void AShooterCharacter::ReloadButtonPressed()
 {
-
+	ReloadWeapon();
 }
 
 void AShooterCharacter::ReloadWeapon()
 {
+	if (CombatState != ECombatState::ECS_Unoccupied) return;
+
+	// Checking if we have ammo of the correct type
+	// TODO: Create bool CarryingAmmo()
+	if (true) {
+
+		// TODO: Create an enum for weapon type
+		// TODO: Switch on EquippedWeapon->WeaponType
+		FName MontageSection(TEXT("Reload SMG"));
+
+		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+		if (ReloadMontage && AnimInstance) {
+
+			AnimInstance->Montage_Play(ReloadMontage);
+			AnimInstance->Montage_JumpToSection(MontageSection);
+		}
+	}
+}
+
+void AShooterCharacter::FinishReloading()
+{
+	// Update AmmoMap
+
+	CombatState = ECombatState::ECS_Unoccupied;
 }
 
 void AShooterCharacter::SelectButtonPressed()
