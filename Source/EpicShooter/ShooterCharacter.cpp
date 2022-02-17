@@ -521,6 +521,15 @@ void AShooterCharacter::PlayGunfireMontage()
 	}
 }
 
+void AShooterCharacter::ReloadButtonPressed()
+{
+
+}
+
+void AShooterCharacter::ReloadWeapon()
+{
+}
+
 void AShooterCharacter::SelectButtonPressed()
 {
 	if (TraceHitItem) {
@@ -559,6 +568,8 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	
 	PlayerInputComponent->BindAction("Select", IE_Pressed, this, &AShooterCharacter::SelectButtonPressed);
 	PlayerInputComponent->BindAction("Select", IE_Released, this, &AShooterCharacter::SelectButtonReleased);
+
+	PlayerInputComponent->BindAction("ReloadButton", IE_Pressed, this, &AShooterCharacter::ReloadButtonPressed);
 
 }
 

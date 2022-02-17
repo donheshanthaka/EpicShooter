@@ -122,9 +122,16 @@ protected:
 	/** Check to make sure weapon has ammo */
 	bool WeaponHasAmmo();
 
+	/** FireWeapon functions */
 	void PlayFireSound();
 	void SendBullet();
 	void PlayGunfireMontage();
+
+	/** Bound to the R key and Gamepad face button left */
+	void ReloadButtonPressed();
+
+	/** Handle reloading of the weapon */
+	void ReloadWeapon();
 
 public:	
 	// Called every frame
