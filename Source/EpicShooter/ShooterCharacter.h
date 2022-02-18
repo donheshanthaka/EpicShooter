@@ -140,7 +140,7 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void ReleaseClip();
 
-	void CrouchButtonPressed();
+	void CrouchButton();
 
 public:	
 	// Called every frame

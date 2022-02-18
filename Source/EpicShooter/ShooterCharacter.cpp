@@ -618,7 +618,8 @@ void AShooterCharacter::ReleaseClip()
 	EquippedWeapon->SetMovingClip(false);
 }
 
-void AShooterCharacter::CrouchButtonPressed()
+
+void AShooterCharacter::CrouchButton()
 {
 	if (!GetCharacterMovement()->IsFalling()) {
 		bCrouching = !bCrouching; // toggling between true or false
@@ -670,8 +671,7 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 	PlayerInputComponent->BindAction("ReloadButton", IE_Pressed, this, &AShooterCharacter::ReloadButtonPressed);
 
-	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AShooterCharacter::CrouchButtonPressed);
-
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AShooterCharacter::CrouchButton);
 
 }
 
