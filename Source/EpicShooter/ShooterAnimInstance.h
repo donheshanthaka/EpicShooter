@@ -68,10 +68,10 @@ private:
 	bool bAiming;
 
 	/** Yaw of the character in the corresponding frame */
-	float CharacterYaw;
+	float TIPCharacterYaw;
 
 	/** Yaw of the character in the previous frame */
-	float CharacterYawLastFrame;
+	float TIPCharacterYawLastFrame;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Turn In Place", meta = (AllowPrivateAccess = "true"))
 	float RootYawOffset;
