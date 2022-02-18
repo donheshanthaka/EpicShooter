@@ -98,10 +98,10 @@ private:
 	EOffsetState OffsetState;
 
 	/** Characeter yaw of the current frame */
-	float CharacterYaw;
+	FRotator CharacterRotation;
 
 	/** Character yaw last frame */
-	float CharacterYawLastFrame;
+	FRotator CharacterRotationLastFrame;
 
 	/** Yaw delta used for leaning in the running blendspace */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category =  Lean, meta = (AllowPrivateAccess = "true"))
