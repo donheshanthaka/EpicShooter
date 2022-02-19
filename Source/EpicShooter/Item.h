@@ -72,6 +72,9 @@ protected:
 	/** Get interp location based on the item type */
 	FVector GetInterpLocation();
 
+	void PlayPickupSound();
+	
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -179,4 +182,7 @@ public:
 
 	/** Called from the AShooterCharacter class */
 	void StartItemCurve(AShooterCharacter* Char);
+
+	// Called in AShooterCharacter::GetPickupItem
+	void PlayEquipSound();
 };
