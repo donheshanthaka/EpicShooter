@@ -25,7 +25,15 @@ enum class EItemState : uint8 {
 	EIS_Equipped UMETA(DisplayName = "Equipped"),
 	EIS_Falling UMETA(DisplayName = "Falling"),
 
-	EIR_MAX UMETA(DisplayName = "DefaultMax")
+	EIS_MAX UMETA(DisplayName = "DefaultMax")
+};
+
+UENUM(BlueprintType)
+enum class EItemType : uint8 {
+	EIT_Ammo UMETA(DisplayName  = "Ammo"),
+	EIT_Weapon UMETA(DisplayName  = "Weapon"),
+
+	EIT_MAX UMETA(DisplayName = "DefaultMax")
 };
 
 UCLASS()
@@ -145,6 +153,10 @@ private:
 	/** Sound played when the item is equipped */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Properties", meta = (AllowPrivateAccess = "true"))
 	USoundCue* EquipSound;
+
+	/** Enum for the type of item this item is */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Properties", meta = (AllowPrivateAccess = "true"))
+	EItemType ItemType;
 
 public:
 
