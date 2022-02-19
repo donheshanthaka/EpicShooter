@@ -777,6 +777,31 @@ void AShooterCharacter::InitializeInterpLocations()
 	InterpLocations.Add(InterpLoc6);
 }
 
+int32 AShooterCharacter::GetInterpLocationIndex()
+{
+	int32 LowestIndex = 1;
+	int32 LowestCount = INT_MAX;
+
+	for (int32 i = 1; i < InterpLocations.Num(); i++) {
+		if (InterpLocations[i].ItemCount < LowestCount) {
+			LowestIndex = i;
+			LowestCount = InterpLocations[i].ItemCount;
+		}
+	}
+
+	return LowestIndex;
+}
+
+void AShooterCharacter::IncrementInterpLocItemCount(int32 Index, int32 Amount)
+{
+	if (Amount < -1 || Amount > 1) return;
+	
+	if (InterpLocations.Num() >= Index) {
+
+		InterpLocations[Index].ItemCount += Amount;
+	}
+}
+
 void AShooterCharacter::SelectButtonPressed()
 {
 	if (TraceHitItem) {
@@ -839,12 +864,14 @@ void AShooterCharacter::IncrementOverlappedItemCount(int8 Amount)
 	}
 }
 
+/* No longer needed
 FVector AShooterCharacter::GetCameraInterpLocation() {
 	const FVector CameraWorldLocation{ FollowCamera->GetComponentLocation() };
 	const FVector CameraForward{ FollowCamera->GetForwardVector() };
 	// Desired = CameraWorldLocation + Forward * A + Up * B
 	return CameraWorldLocation + CameraForward * CameraInterpDistance + FVector(0.f, 0.f, CameraInterpElevation);
 }
+*/
 
 void AShooterCharacter::GetPickupItem(AItem* Item)
 {
