@@ -73,6 +73,9 @@ protected:
 	FVector GetInterpLocation();
 
 	void PlayPickupSound();
+
+	
+	virtual void InitializeCustomDepth();
 	
 
 public:	
@@ -185,4 +188,7 @@ public:
 
 	// Called in AShooterCharacter::GetPickupItem
 	void PlayEquipSound();
+
+	virtual void EnableCustomDepth();
+	virtual void DisableCustomDepth();
 };
