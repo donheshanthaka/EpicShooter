@@ -108,7 +108,7 @@ protected:
 	void TraceForItems();
 
 	/** Spwans a default weaponand */
-	class AWeapon* SpwanDefaultWeapon();
+	class AWeapon* SpawnDefaultWeapon();
 
 	/** Takes a weapon and attaches it to the mesh */
 	void EquipWeapon(AWeapon* WeaponToEquip);

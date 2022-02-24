@@ -142,7 +142,9 @@ void AShooterCharacter::BeginPlay()
 	}
 
 	// Spawn the default weapon and equip it
-	EquipWeapon(SpwanDefaultWeapon());
+	EquipWeapon(SpawnDefaultWeapon());
+	EquippedWeapon->DisableCustomDepth();
+	EquippedWeapon->DisableGlowMaterial();
 
 	InitializeAmmoMap();
 
@@ -470,7 +472,7 @@ void AShooterCharacter::TraceForItems()
 	}
 }
 
-AWeapon* AShooterCharacter::SpwanDefaultWeapon()
+AWeapon* AShooterCharacter::SpawnDefaultWeapon()
 {
 	// Check the TSubClassOf variable
 	if (DefaultWeaponClass) {
