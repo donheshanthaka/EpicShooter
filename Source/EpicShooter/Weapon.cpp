@@ -44,6 +44,8 @@ void AWeapon::ThrowWeapon()
 
 	bFalling = true;
 	GetWorldTimerManager().SetTimer(ThrowWeaponTimer, this, &AWeapon::StopFalling, ThrowWeaponTime);
+
+	EnableGlowMaterial();
 }
 
 void AWeapon::StopFalling()
