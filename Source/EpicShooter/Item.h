@@ -216,6 +216,7 @@ private:
 	float FresnelReflectFraction;
 
 
+
 public:
 
 	FORCEINLINE UWidgetComponent* GetPickupWidget() const { return PickupWidget; }
