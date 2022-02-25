@@ -919,7 +919,6 @@ void AShooterCharacter::GetPickupItem(AItem* Item)
 		{
 			SwapWeapon(Weapon);
 		}
-		SwapWeapon(Weapon);
 	}
 
 	auto Ammo = Cast<AAmmo>(Item);
