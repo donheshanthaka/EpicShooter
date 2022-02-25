@@ -172,6 +172,13 @@ protected:
 	void ResetPickupSoundTimer();
 	void ResetEquipSoundTimer();
 
+	void FKeyPressed();
+	void OneKeyPressed();
+	void TwoKeyPressed();
+	void ThreeKeyPressed();
+	void FourKeyPressed();
+	void FiveKeyPressed();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
