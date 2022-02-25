@@ -495,6 +495,15 @@ void AShooterCharacter::EquipWeapon(AWeapon* WeaponToEquip)
 			// Attach the weapon to the hand socket RightHandSocket
 			HandSocket->AttachActor(WeaponToEquip, GetMesh());
 		}
+
+		if (EquippedWeapon == nullptr) {
+			// -1 == no EquippedWeapon yet. No need to reverse the icon animation
+			EquipItemDelegate.Broadcast(-1, WeaponToEquip->GetSlotIndex());
+		}
+		else {
+			EquipItemDelegate.Broadcast(EquippedWeapon->GetSlotIndex(), WeaponToEquip->GetSlotIndex());
+		}
+
 		// Set Equipped weapon to the newly spwanned weapon
 		EquippedWeapon = WeaponToEquip;
 		// Change the item state to equipped
