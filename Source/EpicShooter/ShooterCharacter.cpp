@@ -474,6 +474,15 @@ void AShooterCharacter::TraceForItems()
 				// Show item's pickup widget
 				TraceHitItem->GetPickupWidget()->SetVisibility(true);
 				TraceHitItem->EnableCustomDepth();
+
+				if (Inventory.Num() >= INVENTORY_CAPACITY) {
+					// Inventory is full
+					TraceHitItem->SetCharacterInventoryFull(true);
+				}
+				else {
+					// Inventory has room
+					TraceHitItem->SetCharacterInventoryFull(false);
+				}
 			}
 
 			// We hit an AItem last frame
