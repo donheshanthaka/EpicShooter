@@ -32,6 +32,8 @@ struct FInterpLocation {
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FEquipItemDelegate, int32, CurrentSlotIndex, int32, NewSlotIndex);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHighlightIconDelegate, int32, SlotIndex, bool, bStartAnimation);
+
 UCLASS()
 class EPICSHOOTER_API AShooterCharacter : public ACharacter
 {
@@ -184,6 +186,12 @@ protected:
 	void FiveKeyPressed();
 
 	void ExchangeInventoryItems(int32 CurrentItemIndex, int32 NewItemIndex);
+
+	int32 GetEmptyInventorySlot();
+
+	void HighlightInventorySlot();
+
+	void UnHighlightInventorySlot();
 
 public:	
 	// Called every frame
@@ -462,6 +470,14 @@ private:
 	/** Delegate for sending slot information to InventoryBar when equipping */
 	UPROPERTY(BlueprintAssignable, Category = Delegates, meta = (AllowPrivateAccess = "true"))
 	FEquipItemDelegate EquipItemDelegate;
+
+	/** Delegate for sending slot information for playing icon animation */
+	UPROPERTY(BlueprintAssignable, Category = Delegates, meta = (AllowPrivateAccess = "true"))
+	FHighlightIconDelegate HighlightIconDelegate;
+
+	/** The index for the currently highlighted slot */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Delegates, meta = (AllowPrivateAccess = "true"))
+	int32 HighlightedSlot;
 
 public:
 
