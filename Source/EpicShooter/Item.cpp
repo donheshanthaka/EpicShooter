@@ -358,6 +358,13 @@ void AItem::OnConstruction(const FTransform& Transform)
 		ItemMesh->SetMaterial(MaterialIndex, DynamicMaterialInstance);
 	}
 	EnableGlowMaterial();
+
+	// Load the data in the item rarity data table
+
+	// Path to the item rarity data table
+	FString RarityTablePath(TEXT("DataTable'/Game/_Game/DataTable/ItemRarityDataTable.ItemRarityDataTable'"));
+	UDataTable* RarityTableObject = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), nullptr, *RarityTablePath));
+	
 }
 
 void AItem::EnableGlowMaterial()
