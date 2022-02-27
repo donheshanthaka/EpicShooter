@@ -99,6 +99,9 @@ void AWeapon::OnConstruction(const FTransform& Transform) {
 			CrosshairRight = WeaponDataRow->CrosshairRight;
 			CrosshairBottom = WeaponDataRow->CrosshairBottom;
 			CrosshairTop = WeaponDataRow->CrosshairTop;
+			AutoFireRate = WeaponDataRow->AutoFireRate;
+			MuzzleFlash = WeaponDataRow->MuzzleFlash;
+			FireSound = WeaponDataRow->FireSound;
 		}
 		if (GetMaterialInstance()) {
 			SetDynamicMaterialInstance(UMaterialInstanceDynamic::Create(GetMaterialInstance(), this));
