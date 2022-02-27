@@ -55,6 +55,20 @@ struct FWeaponDataTable : public FTableRowBase {
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UAnimInstance> AnimBP;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* CrosshairMiddle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* CrosshairLeft;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* CrosshairRight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* CrosshairBottom;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* CrosshairTop;
 };
 
 /**
@@ -113,6 +127,22 @@ private:
 	UDataTable* WeaponDataTable;
 
 	int32 PreviousMaterialIndex;
+
+	/** Textures for the weapon crosshairs */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DataTable, meta = (AllowPrivateAccess = "true"))
+	UTexture2D* CrosshairMiddle;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DataTable, meta = (AllowPrivateAccess = "true"))
+	UTexture2D* CrosshairLeft;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DataTable, meta = (AllowPrivateAccess = "true"))
+	UTexture2D* CrosshairRight;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DataTable, meta = (AllowPrivateAccess = "true"))
+	UTexture2D* CrosshairBottom;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = DataTable, meta = (AllowPrivateAccess = "true"))
+	UTexture2D* CrosshairTop;
 
 public:
 	/** Adds an impulse to the weapon */

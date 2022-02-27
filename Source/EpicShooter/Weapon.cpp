@@ -94,6 +94,11 @@ void AWeapon::OnConstruction(const FTransform& Transform) {
 			SetClipBoneName(WeaponDataRow->ClipBoneName);
 			SetReloadMontageSection(WeaponDataRow->ReloadMontageSection);
 			GetItemMesh()->SetAnimInstanceClass(WeaponDataRow->AnimBP);
+			CrosshairMiddle = WeaponDataRow->CrosshairMiddle;
+			CrosshairLeft = WeaponDataRow->CrosshairLeft;
+			CrosshairRight = WeaponDataRow->CrosshairRight;
+			CrosshairBottom = WeaponDataRow->CrosshairBottom;
+			CrosshairTop = WeaponDataRow->CrosshairTop;
 		}
 		if (GetMaterialInstance()) {
 			SetDynamicMaterialInstance(UMaterialInstanceDynamic::Create(GetMaterialInstance(), this));
