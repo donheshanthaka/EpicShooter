@@ -103,6 +103,8 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	void FinishMovingSlide();
+
 private:
 	FTimerHandle ThrowWeaponTimer;
 	float ThrowWeaponTime;
@@ -179,8 +181,21 @@ private:
 	float SlideDisplacement;
 
 	/** Curve for the slide displacement */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Pistol, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pistol, meta = (AllowPrivateAccess = "true"))
 	UCurveFloat* SlideDisplacementCurve;
+
+	/** Timer handle for updating SlideDisplacement */
+	FTimerHanlde SlideTimer;
+
+	/** Time for displacing the slide during pistol fire */
+	float SlideDisplacementTime;
+
+	/** True when moving the pistol slide */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Pistol, meta = (AllowPrivateAccess = "true"))
+	bool bMovingSlide;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pistol, meta = (AllowPrivateAccess = "true"))
+	float MaxSlideDisplacement;
 
 public:
 	/** Adds an impulse to the weapon */
@@ -201,6 +216,8 @@ public:
 	FORCEINLINE float GetAutoFireRate() const { return AutoFireRate; }
 	FORCEINLINE UParticleSystem* GetMuzzleFlash() const { return MuzzleFlash; }
 	FORCEINLINE USoundCue* GetFireSound() const { return FireSound; }
+
+	void StartSlideTimer();
 
 	void ReloadAmmo(int32 Amount);
 

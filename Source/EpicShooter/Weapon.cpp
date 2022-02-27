@@ -12,7 +12,10 @@ AWeapon::AWeapon():
 	AmmoType(EAmmoType::EAT_9mm),
 	ReloadMontageSection(FName(TEXT("Realod SMG"))),
 	ClipBoneName(TEXT("smg_clip")),
-	SlideDisplacement(0.f)
+	SlideDisplacement(0.f),
+	SlideDisplacementTime(0.1f),
+	bMovingSlide(false),
+	MaxSlideDisplacement(4.f)
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
@@ -125,6 +128,11 @@ void AWeapon::BeginPlay()
 	}
 }
 
+void AWeapon::FinishMovingSlide()
+{
+	bMovingSlide = false;
+}
+
 void AWeapon::DecrementAmmo() {
 
 	if (Ammo - 1 <= 0) {
@@ -133,6 +141,12 @@ void AWeapon::DecrementAmmo() {
 	else {
 		--Ammo;
 	}
+}
+
+void AWeapon::StartSlideTimer()
+{
+	bMovingSlide = true;
+	GetWorldTimerManager().SetTimer(SlideTimer, this, &AWeapon::FinishMovingSlide, SlideDisplacementTime);
 }
 
 void AWeapon::ReloadAmmo(int32 Amount)
