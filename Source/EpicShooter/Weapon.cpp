@@ -11,7 +11,8 @@ AWeapon::AWeapon():
 	WeaponType(EWeaponType::EWT_SubmachineGun),
 	AmmoType(EAmmoType::EAT_9mm),
 	ReloadMontageSection(FName(TEXT("Realod SMG"))),
-	ClipBoneName(TEXT("smg_clip"))
+	ClipBoneName(TEXT("smg_clip")),
+	SlideDisplacement(0.f)
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
