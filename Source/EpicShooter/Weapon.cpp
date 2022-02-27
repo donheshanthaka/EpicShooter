@@ -13,9 +13,10 @@ AWeapon::AWeapon():
 	ReloadMontageSection(FName(TEXT("Realod SMG"))),
 	ClipBoneName(TEXT("smg_clip")),
 	SlideDisplacement(0.f),
-	SlideDisplacementTime(0.1f),
+	SlideDisplacementTime(0.2f),
 	bMovingSlide(false),
-	MaxSlideDisplacement(4.f)
+	MaxSlideDisplacement(4.f),
+	MaxRecoilRotation(20.f)
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
@@ -28,6 +29,8 @@ void AWeapon::Tick(float DeltaTime) {
 		const FRotator MeshRotation{ 0.f, GetItemMesh()->GetComponentRotation().Yaw, 0.f };
 		GetItemMesh()->SetWorldRotation(MeshRotation, false, nullptr, ETeleportType::TeleportPhysics);
 	}
+	// Update slide on pistol
+	UpdateSlideDisplacement();
 }
 
 void AWeapon::ThrowWeapon()
@@ -131,6 +134,16 @@ void AWeapon::BeginPlay()
 void AWeapon::FinishMovingSlide()
 {
 	bMovingSlide = false;
+}
+
+void AWeapon::UpdateSlideDisplacement()
+{
+	if (SlideDisplacementCurve && bMovingSlide) {
+		const float ElapsedTime{ GetWorldTimerManager().GetTimerElapsed(SlideTimer) };
+		const float CurveValue{ SlideDisplacementCurve->GetFloatValue(ElapsedTime) };
+		SlideDisplacement = CurveValue * MaxSlideDisplacement;
+		RecoilRotation = CurveValue * MaxRecoilRotation;
+	}
 }
 
 void AWeapon::DecrementAmmo() {
