@@ -17,6 +17,8 @@
 #include "Components/SphereComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Ammo.h"
+#include "PhysicalMaterials/PhysicalMaterial.h"
+#include "EpicShooter.h"
 
 // Sets default values
 AShooterCharacter::AShooterCharacter() :
@@ -351,8 +353,10 @@ void AShooterCharacter::Footstep()
 
 	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, QueryParams);
 
-	
-	UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *HitResult.Actor->GetName());
+	auto HitSurface = HitResult.PhysMaterial->SurfaceType;
+	if (HitSurface == EPS_Grass) {
+		UE_LOG(LogTemp, Warning, TEXT("Hit grass"))
+	}
 	
 }
 
