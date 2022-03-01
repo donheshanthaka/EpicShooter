@@ -20,6 +20,7 @@
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "BulletHitInterface.h"
 #include "EpicShooter.h"
+#include "Enemy.h"
 
 
 // Sets default values
@@ -682,6 +683,11 @@ void AShooterCharacter::SendBullet()
 				if (BulletHitInterface) {
 					BulletHitInterface->BulletHit_Implementation(BeamHitResult);
 				}
+
+				AEnemy* HitEnemy = Cast<AEnemy>(BeamHitResult.Actor.Get());
+				if (HitEnemy) {
+					UGameplayStatics::ApplyDamage(BeamHitResult.Actor.Get(), EquippedWeapon->GetDamage(), GetController(), this, UDamageType::StaticClass());
+				}
 			}
 			else {
 				// Spawn default impact particles
@@ -689,8 +695,6 @@ void AShooterCharacter::SendBullet()
 					UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactParticles, BeamHitResult.Location);
 				}
 			}
-
-			
 
 			UParticleSystemComponent* Beam = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BeamParticles, SocketTransform);
 			if (Beam) {
