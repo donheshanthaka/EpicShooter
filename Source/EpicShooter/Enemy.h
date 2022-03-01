@@ -27,6 +27,8 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void HideHealthBar();
 
+	void Die();
+
 private:
 
 
