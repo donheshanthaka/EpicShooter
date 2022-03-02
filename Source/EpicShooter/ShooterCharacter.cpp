@@ -691,14 +691,16 @@ void AShooterCharacter::SendBullet()
 						// Head shot
 						Damage = EquippedWeapon->GetHeadShotDamage();
 						UGameplayStatics::ApplyDamage(BeamHitResult.Actor.Get(), Damage, GetController(), this, UDamageType::StaticClass());
+						HitEnemy->ShowHitNumber(Damage, BeamHitResult.Location, true);
 					}
 					else {
 						// Body shot
 						Damage = EquippedWeapon->GetDamage();
 						UGameplayStatics::ApplyDamage(BeamHitResult.Actor.Get(), Damage, GetController(), this, UDamageType::StaticClass());
+						HitEnemy->ShowHitNumber(Damage, BeamHitResult.Location, false);
 					}
 					
-					HitEnemy->ShowHitNumber(Damage, BeamHitResult.Location);
+					
 				}
 			}
 			else {
