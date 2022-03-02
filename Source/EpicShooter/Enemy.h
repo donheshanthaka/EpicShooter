@@ -33,6 +33,9 @@ protected:
 
 	void RestHitReactTimer();
 
+	UFUNCTION(BlueprintCallable)
+	void StoreHitNumber(UUserWidget* HitNumber, FVector Location);
+
 private:
 
 
@@ -75,7 +78,10 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
 	float HitReactTimeMax;
-
+	
+	/** Map to store HitNumber widgets and their hit locations */
+	UPROPERTY(VisibleAnywhere, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	TMap<UUserWidget*, FVector> HitNumbers;
 
 public:	
 	// Called every frame
