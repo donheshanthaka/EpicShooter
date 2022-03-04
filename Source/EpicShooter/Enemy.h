@@ -113,8 +113,14 @@ private:
 	/** Overlap sphere for when the enemy becomes hostile */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Behavior Tree", meta = (AllowPrivateAccess = "true", MakeEditWidget = "true"))
 	class USphereComponent* AgroSphere;
+	
+	/** True when playing the get hit animation */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	bool bStunned;
 
-
+	/** Chance of being stunned, 0: no stun chance, 1: 100% stun chance */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true", MakeEditWidget = "true"))
+	float StunChance;
 
 public:	
 	// Called every frame
