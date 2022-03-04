@@ -131,6 +131,15 @@ void AEnemy::AgroSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 	}
 }
 
+void AEnemy::SetStunned(bool Stunned)
+{
+	bStunned = Stunned;
+
+	if (EnemyController) {
+		EnemyController->GetBlackboardComponent()->SetValueAsBool(TEXT("Stunned"), Stunned);
+	}
+}
+
 // Called every frame
 void AEnemy::Tick(float DeltaTime)
 {
@@ -161,7 +170,7 @@ void AEnemy::BulletHit_Implementation(FHitResult HitResult)
 	if (Stunned <= StunChance) {
 		// Stun the Enemy
 		PlayHitMontage(FName("HitReactFront"));
-		bStunned = true;
+		SetStunned(true);
 	}
 	
 }
