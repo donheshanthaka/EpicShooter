@@ -55,7 +55,7 @@ protected:
 	void CombatRangeEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	UFUNCTION(BlueprintCallable)
-	void PlayAttackMontage(FName Section, float PlayRate);
+	void PlayAttackMontage(FName Section, float PlayRate = 1.0f);
 
 	UFUNCTION(BlueprintPure)
 	FName GetAttackSectionName();
