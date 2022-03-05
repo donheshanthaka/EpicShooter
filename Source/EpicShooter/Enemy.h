@@ -54,6 +54,9 @@ protected:
 	UFUNCTION()
 	void CombatRangeEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	UFUNCTION(BlueprintCallable)
+	void PlayAttackMontage(FName Section, float PlayRate);
+
 private:
 
 
@@ -138,6 +141,16 @@ private:
 	/** Sphere for attack range */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
 	USphereComponent* CombatRangeSphere;
+
+	/** Montage containing different attacks */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* AttackMontage;
+
+	/** The four attack montage section names */
+	FName AttackLFast;
+	FName AttackRFast;
+	FName AttackL;
+	FName AttackR;
 
 public:	
 	// Called every frame
