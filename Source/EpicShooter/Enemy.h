@@ -79,6 +79,8 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DeactivateRightWeapon();
 
+	void DoDamage(AActor* Victim);
+
 private:
 
 
@@ -181,6 +183,10 @@ private:
 	/** Collision volume for the Right weapon */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* RightWeaponCollision;
+
+	/** Base damage for enemy */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	float BaseDamage;
 
 public:	
 	// Called every frame

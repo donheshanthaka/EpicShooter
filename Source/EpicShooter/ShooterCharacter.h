@@ -43,6 +43,9 @@ public:
 	// Sets default values for this character's properties
 	AShooterCharacter();
 
+	// Take combat damage
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -469,6 +472,14 @@ private:
 	/** The index for the currently highlighted slot */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Delegates, meta = (AllowPrivateAccess = "true"))
 	int32 HighlightedSlot;
+
+	/** Character health */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	float Health;
+
+	/** Character max health */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	float MaxHealth;
 
 public:
 
