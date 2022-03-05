@@ -57,6 +57,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void PlayAttackMontage(FName Section, float PlayRate);
 
+	UFUNCTION(BlueprintPure)
+	FName GetAttackSectionName();
+
 private:
 
 
