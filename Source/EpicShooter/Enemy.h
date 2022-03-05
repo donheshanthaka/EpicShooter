@@ -79,7 +79,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DeactivateRightWeapon();
 
-	void DoDamage(AActor* Victim);
+	void DoDamage(class AShooterCharacter* Victim);
+
+	void SpawnBlood(AShooterCharacter* Victim, FName SocketName);
 
 private:
 
@@ -187,6 +189,12 @@ private:
 	/** Base damage for enemy */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
 	float BaseDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	FName LeftWeaponSocket;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
+	FName RightWeaponSocket;
 
 public:	
 	// Called every frame
