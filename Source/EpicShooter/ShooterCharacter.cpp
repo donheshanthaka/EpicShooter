@@ -289,7 +289,7 @@ bool AShooterCharacter::GetBeamEndLocation(const FVector& MuzzleSocketLocation, 
 void AShooterCharacter::AimingButtonPressed()
 {
 	bAimingButtonPressed = true;
-	if (CombatState != ECombatState::ECS_Reloading && CombatState != ECombatState::ECS_Equipping) {
+	if (CombatState != ECombatState::ECS_Reloading && CombatState != ECombatState::ECS_Equipping && CombatState != ECombatState::ECS_Stunned) {
 		Aim();
 	}
 }
@@ -372,6 +372,15 @@ EPhysicalSurface AShooterCharacter::GetSurfaceType()
 
 	return UPhysicalMaterial::DetermineSurfaceType(HitResult.PhysMaterial.Get());
 	
+}
+
+void AShooterCharacter::EndStunt()
+{
+	CombatState = ECombatState::ECS_Unoccupied;
+
+	if (bAimingButtonPressed) {
+		Aim();
+	}
 }
 
 void AShooterCharacter::UnHighlightInventorySlot()
@@ -483,6 +492,7 @@ void AShooterCharacter::StartFireTimer()
 
 void AShooterCharacter::AutoFireReset()
 {
+	if (CombatState == ECombatState::ECS_Stunned) return;
 	CombatState = ECombatState::ECS_Unoccupied;
 	if (EquippedWeapon == nullptr) return;
 	if (WeaponHasAmmo()) {
@@ -773,6 +783,7 @@ void AShooterCharacter::ReloadWeapon()
 
 void AShooterCharacter::FinishReloading()
 {
+	if (CombatState == ECombatState::ECS_Stunned) return;
 	// Update the combat state
 	CombatState = ECombatState::ECS_Unoccupied;
 
@@ -810,6 +821,7 @@ void AShooterCharacter::FinishReloading()
 
 void AShooterCharacter::FinishEquipping()
 {
+	if (CombatState == ECombatState::ECS_Stunned) return;
 	CombatState = ECombatState::ECS_Unoccupied;
 	if (bAimingButtonPressed) {
 		Aim();

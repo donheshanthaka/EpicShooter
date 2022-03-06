@@ -10,6 +10,7 @@
 UENUM(BlueprintType)
 enum class ECombatState : uint8 {
 	ECS_Unoccupied UMETA(DisplayName = "Unoccupied"),
+	ECS_Stunned UMETA(DisplayName = "Stunned"),
 	ECS_FireTimerInProgress UMETA(DisplayName = "FireTimerInProgress"),
 	ECS_Reloading UMETA(DisplayName = "Reloading"),
 	ECS_Equipping UMETA(DisplayName = "Equipping"),
@@ -196,6 +197,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	EPhysicalSurface GetSurfaceType();
+
+	UFUNCTION(BlueprintCallable)
+	void EndStunt();
 
 
 public:	
