@@ -36,7 +36,8 @@ AEnemy::AEnemy():
 	LeftWeaponSocket(TEXT("FX_Trail_L_01")),
 	RightWeaponSocket(TEXT("FX_Trail_R_01")),
 	bCanAttack(true),
-	AttackWaitTime(1.f)
+	AttackWaitTime(1.f),
+	bDying(false)
 
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -119,6 +120,8 @@ void AEnemy::ShowHealthBar_Implementation()
 
 void AEnemy::Die()
 {
+	if (bDying) return;
+	bDying = true;
 	HideHealthBar();
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
@@ -381,4 +384,9 @@ void AEnemy::ResetCanAttack()
 	if (EnemyController) {
 		EnemyController->GetBlackboardComponent()->SetValueAsBool(FName("CanAttack"), true);
 	}
+}
+
+void AEnemy::FinishDeath()
+{
+	Destroy();
 }

@@ -88,6 +88,9 @@ protected:
 
 	void ResetCanAttack();
 
+	UFUNCTION(BlueprintCallable)
+	void FinishDeath();
+
 private:
 
 
@@ -214,6 +217,8 @@ private:
 	/** Death anim montage for the enemy */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"))
 	UAnimMontage* DeathMontage;
+
+	bool bDying;
 
 public:	
 	// Called every frame
