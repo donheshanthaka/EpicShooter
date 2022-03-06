@@ -763,12 +763,13 @@ void AShooterCharacter::SendBullet()
 					
 					
 				}
+				else {
+					// Spawn default impact particles
+					if (ImpactParticles) {
+						UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactParticles, BeamHitResult.Location);
+					}
 			}
-			else {
-				// Spawn default impact particles
-				if (ImpactParticles) {
-					UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactParticles, BeamHitResult.Location);
-				}
+			
 			}
 
 			UParticleSystemComponent* Beam = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BeamParticles, SocketTransform);
