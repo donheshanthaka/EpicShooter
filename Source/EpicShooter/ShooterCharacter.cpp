@@ -85,7 +85,8 @@ AShooterCharacter::AShooterCharacter() :
 	HighlightedSlot(-1),
 	// Health variables
 	Health(100.f),
-	MaxHealth(100.f)
+	MaxHealth(100.f),
+	StunChance(.25f)
 
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -387,6 +388,16 @@ void AShooterCharacter::UnHighlightInventorySlot()
 {
 	HighlightIconDelegate.Broadcast(HighlightedSlot, false);
 	HighlightedSlot = -1;
+}
+
+void AShooterCharacter::Stun()
+{
+	CombatState = ECombatState::ECS_Stunned;
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && HitReactMontage) {
+		AnimInstance->Montage_Play(HitReactMontage);
+	}
 }
 
 // Called every frame
